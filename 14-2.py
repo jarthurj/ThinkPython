@@ -1,23 +1,29 @@
 import random
 
-def sed(pattern, replace, doc1, doc2):
-	pattern_list = pattern.split()
-	doc1_word_list = doc_lister(doc1)
-	
+def sed(replace, doc1, doc2):
+	doc1_word_list, replacer = doc_lister(doc1)
+
 
 
 def doc_lister(doc1):
 	fin = open(doc1)
 	doc_list = list()
+	line_d = dict()
+	count = 0
+
 	for line in fin:
-		line_list = line.split()
+		line_list = line_d[count] = line.split()
+		count += 1
 		for word in line_list:
 			doc_list.append(word)
-	return doc_list
+	random_line = line_d[random.choice(list(line_d.keys()))]
+
+	return doc_list, random_line
 
 def words_to_list():
 	fin = open('words.txt')
 	words_list = list()	
+
 	for line in fin:
 		words_list.append(line.strip())	
 	return words_list
@@ -39,4 +45,5 @@ def random_doc():
 
 
 if __name__ == '__main__':
-	x = random_doc()
+	new_file = random_doc()
+	sed("fuck fuck fuck", new_file, "processed_file.txt")
